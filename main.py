@@ -21,14 +21,11 @@ async def init_db():
                 date TEXT NOT NULL,
                 amount REAL NOT NULL,
                 category TEXT NOT NULL,
-                subcategory TEXT DEFFAULT '',
+                subcategory TEXT DEFAULT '',
                 note TEXT DEFAULT ''
             )
         """)
         await c.commit()
-
-asyncio.run(init_db())
-
 
 @mcp.tool()
 async def add_expense(date, amount, category, subcategory="", note=""):
@@ -81,5 +78,6 @@ async def categories():
 
 
 if __name__ == "__main__":
+    asyncio.run(init_db())
     # if we want to build remote server then we need to specify the transport which they are working on.
     mcp.run(transport="http", host="127.0.0.1", port=8000)
