@@ -14,5 +14,5 @@ Steps to Create Remote server and use it.
 11. Deploy on FastMCP cloud
 12. we got some url like this https://neighbouring-lavender-mole.fastmcp.app/mcp
 13. We can connect our remote server to client using 2 ways
-a. for pro plan claude users there is one option that is custom connectors which is available inside connect
-b. for non pro user we should need to create a proxy server 
+    a. for pro plan claude users there is one option that is custom connectors which is available inside connect
+    b. for non pro user we should need to create a proxy server

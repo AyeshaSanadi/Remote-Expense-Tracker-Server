@@ -5,15 +5,9 @@ import os
 import json
 import aiosqlite
 
-DB_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "expenses.db"
-)
+DB_PATH = "/tmp/expenses.db"
 
-CATEGORIES_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "expense_category.json"
-)
+CATEGORIES_PATH = "/tmp/expense_category.json"
 
 
 # --------------------------------------------------
