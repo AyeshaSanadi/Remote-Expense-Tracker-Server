@@ -1,0 +1,152 @@
+{
+  "Food": [
+    "Groceries",
+    "Restaurant",
+    "Fast Food",
+    "Snacks",
+    "Coffee",
+    "Tea",
+    "Desserts",
+    "Delivery"
+  ],
+  "Transportation": [
+    "Fuel",
+    "Bus",
+    "Train",
+    "Metro",
+    "Taxi",
+    "Auto Rickshaw",
+    "Flight",
+    "Parking",
+    "Tolls",
+    "Vehicle Maintenance"
+  ],
+  "Housing": [
+    "Rent",
+    "Mortgage",
+    "Electricity",
+    "Water",
+    "Gas",
+    "Internet",
+    "Maintenance",
+    "Furniture"
+  ],
+  "Healthcare": [
+    "Doctor",
+    "Medicines",
+    "Dental",
+    "Vision",
+    "Insurance",
+    "Lab Tests",
+    "Hospital"
+  ],
+  "Shopping": [
+    "Clothing",
+    "Footwear",
+    "Accessories",
+    "Electronics",
+    "Home Decor",
+    "Personal Care"
+  ],
+  "Entertainment": [
+    "Movies",
+    "Streaming Services",
+    "Games",
+    "Books",
+    "Music",
+    "Events",
+    "Hobbies"
+  ],
+  "Education": [
+    "Tuition",
+    "Courses",
+    "Books",
+    "Certifications",
+    "Training",
+    "School Supplies"
+  ],
+  "Bills": [
+    "Mobile",
+    "Internet",
+    "Electricity",
+    "Water",
+    "Gas",
+    "Credit Card"
+  ],
+  "Insurance": [
+    "Health Insurance",
+    "Vehicle Insurance",
+    "Life Insurance",
+    "Home Insurance"
+  ],
+  "Personal Care": [
+    "Haircut",
+    "Salon",
+    "Cosmetics",
+    "Gym",
+    "Spa"
+  ],
+  "Family": [
+    "Children",
+    "Parents",
+    "Gifts",
+    "Family Events"
+  ],
+  "Travel": [
+    "Accommodation",
+    "Flights",
+    "Local Transport",
+    "Food",
+    "Sightseeing",
+    "Visa"
+  ],
+  "Investments": [
+    "Stocks",
+    "Mutual Funds",
+    "SIP",
+    "Fixed Deposit",
+    "Gold",
+    "Retirement"
+  ],
+  "Savings": [
+    "Emergency Fund",
+    "General Savings",
+    "Recurring Deposit"
+  ],
+  "Taxes": [
+    "Income Tax",
+    "Property Tax",
+    "Professional Tax"
+  ],
+  "Loans": [
+    "Home Loan",
+    "Car Loan",
+    "Education Loan",
+    "Personal Loan",
+    "EMI"
+  ],
+  "Business": [
+    "Office Supplies",
+    "Software",
+    "Marketing",
+    "Travel",
+    "Equipment"
+  ],
+  "Pets": [
+    "Food",
+    "Veterinary",
+    "Accessories",
+    "Grooming"
+  ],
+  "Donations": [
+    "Charity",
+    "Religious",
+    "Community Support"
+  ],
+  "Miscellaneous": [
+    "Unexpected Expense",
+    "Fees",
+    "Penalties",
+    "Other"
+  ]
+}
