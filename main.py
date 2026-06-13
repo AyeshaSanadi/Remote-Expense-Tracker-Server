@@ -1,16 +1,21 @@
+# converting whole code to async and await functionality
+# bcaz if multiple user perform simulteneously operation on db then that should not be crashed or work unexpected.
+
 from fastmcp import FastMCP
 import os
-import sqlite3
+import aiosqlite
 import json
+import asyncio
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "expenses.db")
-CATEGORIES_PATH = "F:\MCP\ExpenseTracker\expense_category.json"
+CATEGORIES_PATH = os.path.join(os.path.dirname(__file__),"expense_category.json")
 
 mcp = FastMCP(name="ExpenseTracker")
 
-def init_db():
-    with sqlite3.connect(DB_PATH) as c:
-        c.execute("""
+async def init_db():
+    async with aiosqlite.connect(DB_PATH) as c:
+        await c.execute("PRAGMA journal_mode=WAL")
+        await c.execute("""
             CREATE TABLE IF NOT EXISTS expenses(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT NOT NULL,
@@ -20,35 +25,38 @@ def init_db():
                 note TEXT DEFAULT ''
             )
         """)
+        await c.commit()
 
-init_db()
+asyncio.run(init_db())
 
 
 @mcp.tool()
-def add_expense(date, amount, category, subcategory="", note=""):
+async def add_expense(date, amount, category, subcategory="", note=""):
     """Add expenses to the db"""
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.execute(
+    async with aiosqlite.connect(DB_PATH) as conn:
+        cursor = await conn.execute(
             "INSERT INTO expenses(date, amount, category, subcategory, note) VALUES (?,?,?,?,?)",
             (date, amount, category, subcategory, note)
         )
+        await conn.commit()
         return {"status": "ok", "id":cursor.lastrowid}
 
 
 @mcp.tool()
-def list_expenses():
+async def list_expenses():
     "list all the expenses from db"
-    with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.execute(
+    async with aiosqlite.connect(DB_PATH) as conn:
+        cursor = await conn.execute(
             "SELECT id, date, amount, category, subcategory, note FROM expenses ORDER BY id ASC")
         cols = [d[0] for d in cursor.description]
-        return [dict(zip(cols, r)) for r in cursor.fetchall()]
+        rows = await cursor.fetchall()
+        return [dict(zip(cols, r)) for r in rows]
 
 
 @mcp.tool()
-def summarize(start_date, end_date, category=None):
+async def summarize(start_date, end_date, category=None):
     """ Sumarize expense by category within an inclusive date range"""
-    with sqlite3.connect(DB_PATH) as conn:
+    async with aiosqlite.connect(DB_PATH) as conn:
         query = (
             """SELECT category, SUM(amount) AS total_amount FROM expenses WHERE date BETWEEN ? AND ?"""
         )
@@ -60,17 +68,18 @@ def summarize(start_date, end_date, category=None):
 
         query += " GROUP BY category ORDER BY category ASC"
 
-        cursor = conn.execute(query, params)
+        cursor = await conn.execute(query, params)
         cols = [d[0] for d in cursor.description]
-        return [dict(zip(cols, r)) for r in cursor.fetchall()]
+        rows = await cursor.fetchall()
+        return [dict(zip(cols, r)) for r in rows]
 
 
 @mcp.resource("expense://categories", mime_type="application/json")
-def categories():
+async def categories():
     with open(CATEGORIES_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 if __name__ == "__main__":
     # if we want to build remote server then we need to specify the transport which they are working on.
-    mcp.run("http", )
+    mcp.run(transport="http", host="127.0.0.1", port=8000)
